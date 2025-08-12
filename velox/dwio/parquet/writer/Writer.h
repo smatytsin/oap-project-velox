@@ -93,7 +93,7 @@ struct WriterOptions : public dwio::common::WriterOptions {
   // heuristic borrowed from
   // folly/FBVector(https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md#memory-handling).
   double bufferGrowRatio = 1.5;
-
+  bool enableStoreDecimalAsInteger = false;
   arrow::Encoding::type encoding = arrow::Encoding::PLAIN;
 
   std::shared_ptr<CodecOptions> codecOptions;
@@ -146,6 +146,9 @@ struct WriterOptions : public dwio::common::WriterOptions {
       "hive.parquet.writer.batch-size";
   static constexpr const char* kParquetHiveConnectorCreatedBy =
       "hive.parquet.writer.created-by";
+
+  static constexpr const char* kParquetStoreDecimalAsInteger =
+      "hive.parquet.writer.store-decimal-as-integer";
 
   // Process hive connector and session configs.
   void processConfigs(
