@@ -89,6 +89,8 @@ class LambdaFlushPolicy : public DefaultFlushPolicy {
 
 struct WriterOptions : public dwio::common::WriterOptions {
   bool enableDictionary = true;
+  bool enableStoreDecimalAsInteger = false;
+
   int64_t dataPageSize = 1'024 * 1'024;
   int64_t dictionaryPageSizeLimit = 1'024 * 1'024;
   // Growth ratio passed to ArrowDataBufferSink. The default value is a
@@ -122,6 +124,9 @@ struct WriterOptions : public dwio::common::WriterOptions {
       "hive.parquet.writer.datapage_version";
   static constexpr const char* kParquetHiveConnectorDataPageVersion =
       "hive.parquet.writer.datapage-version";
+
+  static constexpr const char* kParquetStoreDecimalAsInteger =
+      "hive.parquet.writer.store-decimal-as-integer";
 
   // Process hive connector and session configs.
   void processConfigs(

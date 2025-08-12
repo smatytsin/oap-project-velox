@@ -146,7 +146,13 @@ std::shared_ptr<WriterProperties> getArrowParquetWriterOptions(
   properties = properties->max_row_group_length(
       static_cast<int64_t>(flushPolicy->rowsInRowGroup()));
   properties = properties->codec_options(options.codecOptions);
-  properties = properties->enable_store_decimal_as_integer();
+
+  if (options.enableStoreDecimalAsInteger) {
+      properties = properties->enable_store_decimal_as_integer();
+  } else {
+      properties = properties->disable_store_decimal_as_integer();
+  }
+
   if (options.useParquetDataPageV2.value_or(false)) {
     properties =
         properties->data_page_version(arrow::ParquetDataPageVersion::V2);
@@ -498,6 +504,8 @@ void WriterOptions::processConfigs(
         : getParquetDataPageVersion(
               connectorConfig, kParquetHiveConnectorDataPageVersion);
   }
+
+  enableStoreDecimalAsInteger = config.get<bool>(kParquetStoreDecimalAsInteger, enableStoreDecimalAsInteger);
 }
 
 } // namespace facebook::velox::parquet
