@@ -507,7 +507,7 @@ void WriterOptions::processConfigs(
               connectorConfig, kParquetHiveConnectorDataPageVersion);
   }
 
-  enableStoreDecimalAsInteger = config.get<bool>(kParquetStoreDecimalAsInteger, enableStoreDecimalAsInteger);
+  enableStoreDecimalAsInteger = config->get<bool>(kParquetStoreDecimalAsInteger, enableStoreDecimalAsInteger);
 }
 
 } // namespace facebook::velox::parquet
