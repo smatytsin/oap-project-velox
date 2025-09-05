@@ -109,7 +109,7 @@ struct WriterOptions : public dwio::common::WriterOptions {
   std::optional<TimestampPrecision> parquetWriteTimestampUnit;
   /// Timestamp time zone for Parquet write through Arrow bridge.
   std::optional<std::string> parquetWriteTimestampTimeZone;
-  bool writeInt96AsTimestamp = false;
+  bool writeInt96AsTimestamp = true;
   std::optional<bool> useParquetDataPageV2;
 
   // Parsing session and hive configs.
@@ -126,7 +126,10 @@ struct WriterOptions : public dwio::common::WriterOptions {
       "hive.parquet.writer.datapage-version";
 
   static constexpr const char* kParquetStoreDecimalAsInteger =
-      "hive.parquet.writer.store-decimal-as-integer";
+      "hive.parquet.writer.store_decimal_as_integerbool";
+
+  static constexpr const char* kParquetUseDeprecatedInt96Timestamps =
+      "hive.parquet.writer.use_deprecated_int96_timestamps";
 
   // Process hive connector and session configs.
   void processConfigs(
