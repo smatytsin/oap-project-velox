@@ -626,6 +626,9 @@ void WriterOptions::processConfigs(
 
   enableStoreDecimalAsInteger = session.get<bool>(kParquetStoreDecimalAsInteger, enableStoreDecimalAsInteger);
   enableStoreDecimalAsInteger = connectorConfig.get<bool>(kParquetStoreDecimalAsInteger, enableStoreDecimalAsInteger);
+
+  writeInt96AsTimestamp = session.get<bool>(kParquetUseDeprecatedInt96Timestamps, writeInt96AsTimestamp);
+  writeInt96AsTimestamp = connectorConfig.get<bool>(kParquetUseDeprecatedInt96Timestamps, writeInt96AsTimestamp);
 }
 
 } // namespace facebook::velox::parquet
